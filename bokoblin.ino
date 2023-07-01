@@ -7,10 +7,10 @@ const int piezoPin = A0;
 const int piezoThreshold = 20;
 const int servoInitPos = 93;
 const int servoMaxPos = 158;
-const int redPin = 10;
-const int greenPin = 12;
-const int bluePin = 13;
-const int led5Pin = 5;
+const int redPin = 3;
+const int greenPin = 5;
+const int bluePin = 6;
+const int led5Pin = 12;
 bool processing = false;
 bool boxOpened = false;
 
@@ -22,14 +22,14 @@ const unsigned char closeAudio[] PROGMEM = {
 
 void showColor(int red, int green, int blue)
 {
-  analogWrite(redPin, red);
-  analogWrite(greenPin, green);
-  analogWrite(bluePin, blue);
+  analogWrite(greenPin, 255 - green);
+  analogWrite(redPin, 255 - red);
+  analogWrite(bluePin, 255 - blue);
 }
 
 void openBox()
 {
-  showColor(242, 233, 110); // Yellow
+  showColor(255, 160, 0); // Yellow
 
   startPlayback(openAudio, sizeof(openAudio));
   delay(2000);
@@ -65,7 +65,7 @@ void closeBox()
   delay(2000);
   stopPlayback();
 
-  showColor(200, 90, 240); // Purple
+  showColor(180, 10, 255); // Purple
 
   boxOpened = false;
 }
@@ -83,7 +83,7 @@ void setup()
   delay(1000);
   servo.detach();
 
-  showColor(200, 90, 240); // Purple
+  showColor(180, 10, 255); // Purple
 }
 
 void loop()
